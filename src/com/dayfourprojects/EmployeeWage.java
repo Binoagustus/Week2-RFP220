@@ -7,33 +7,39 @@ public class EmployeeWage {
 	int parttimeHour = 4;
 	
 	//Attendance Check
-	public void empAttendance() {
-		double attendance = (int) (Math.random() * 10) % 2 ; 
+	public int empAttendance() {
+		int attendance = (int) (Math.random() * 10) % 2 ; 
 		if(attendance == IS_FULL_TIME) {
 			System.out.println("Employee is present");
 		} else {
 			System.out.println("Employee is absent");
 		}
+		return attendance;
 	}
 	
-	public int calcEmployeeWage() {
-		int dailyWage = fullDayHour * wagePerHour;
-		return dailyWage;
+	public void calcEmpWage(int attendance1) {
+		switch(attendance1) {
+			case 1: 
+				int dailyWage = fullDayHour * wagePerHour;
+				System.out.println("Full time wage of the Employee is "+dailyWage); 
+				break;
+				
+			case 0:
+				int parttimeWage = parttimeHour * wagePerHour;
+				System.out.println("Part time wage of the Employee is "+parttimeWage) ;
+				break;
+			
+			default:
+				System.out.println("Check Input");
+				break;
+		}			
 	}
 	
-	public int calcParttimeWage() {
-		int parttimeWage = parttimeHour * wagePerHour;
-		return parttimeWage;
-	}
 	
 	public static void main(String[] args) {
-		System.out.println("Welcome to Employee wage computation");
 		EmployeeWage empobj = new EmployeeWage();
-		empobj.empAttendance();
-		int empWage = empobj.calcEmployeeWage();
-		System.out.println("Daily employee wage is "+empWage);
-		int empParttimeWage = empobj.calcParttimeWage();
-		System.out.println("Part Time employee wage is "+empParttimeWage);
+		int attendance1 = empobj.empAttendance();
+		empobj.calcEmpWage(attendance1);
 	}
 
 }
