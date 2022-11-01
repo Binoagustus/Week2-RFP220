@@ -2,6 +2,8 @@ package com.dayfourprojects;
 
 public class EmployeeWage {
 	int IS_FULL_TIME = 1;
+	int wagePerHour = 20;
+	int fullDayHour = 8;
 	
 	//Attendance Check
 	public void empAttendance() {
