@@ -5,6 +5,8 @@ public class EmployeeWage {
 	int wagePerHour = 20;
 	int fullDayHour = 8;
 	int parttimeHour = 4;
+	int daysPerMonth = 20;
+	int fulltimeMonthWage, parttimeMonthWage;
 	
 	//Attendance Check
 	public int empAttendance() {
@@ -17,29 +19,44 @@ public class EmployeeWage {
 		return attendance;
 	}
 	
-	public void calcEmpWage(int attendance1) {
+	//Calculate wage
+	public int calcEmpWage(int attendance1) {
 		switch(attendance1) {
 			case 1: 
 				int dailyWage = fullDayHour * wagePerHour;
-				System.out.println("Full time wage of the Employee is "+dailyWage); 
-				break;
+				System.out.println("Wage of the Full time Employee per day is "+dailyWage);
+				return dailyWage;
 				
 			case 0:
 				int parttimeWage = parttimeHour * wagePerHour;
-				System.out.println("Part time wage of the Employee is "+parttimeWage) ;
-				break;
+				System.out.println("Wage of the Part time Employee per day is "+parttimeWage);
+				return parttimeWage;
 			
 			default:
 				System.out.println("Check Input");
-				break;
+				return 0;
 		}			
 	}
 	
+	//Monthly Wage
+	public int monthlyWage(int attendance1, int wage) {
+		if(attendance1 == IS_FULL_TIME) {
+			fulltimeMonthWage = wage * daysPerMonth;
+			System.out.println("Wage of the Full time Employee per month is "+fulltimeMonthWage);
+			return fulltimeMonthWage;
+		} else if(attendance1 == 0) {
+			parttimeMonthWage = wage * daysPerMonth;
+			System.out.println("Wage of the Part time Employee per month is "+parttimeMonthWage);
+			return parttimeMonthWage;
+		}
+		return wage;
+	}
 	
 	public static void main(String[] args) {
 		EmployeeWage empobj = new EmployeeWage();
 		int attendance1 = empobj.empAttendance();
-		empobj.calcEmpWage(attendance1);
+		int wage = empobj.calcEmpWage(attendance1);
+		int monthWage = empobj.monthlyWage(attendance1,wage);
 	}
 
 }
