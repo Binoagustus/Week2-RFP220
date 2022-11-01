@@ -15,9 +15,16 @@ public class EmployeeWage {
 		}
 	}
 	
+	public int calcEmployeeWage() {
+		int dailyWage = fullDayHour * wagePerHour;
+		return dailyWage;
+	}
+	
 	public static void main(String[] args) {
 		EmployeeWage empobj = new EmployeeWage();
 		empobj.empAttendance();
+		int empWage = empobj.calcEmployeeWage();
+		System.out.println("Daily employee wage is "+empWage);
 	}
 
 }
