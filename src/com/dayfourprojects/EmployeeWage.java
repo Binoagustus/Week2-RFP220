@@ -1,23 +1,24 @@
 package com.dayfourprojects;
 
 public class EmployeeWage {
-	int IS_FULL_TIME = 1;
-	int wagePerHour = 20;
-	int fullDayHour = 8;
-	int parttimeHour = 4;
-	static int daysPerMonth = 20;
-	int fulltimeMonthWage, parttimeMonthWage;
-	int monthlyFtHours, monthlyPtHours;
-	static int totalHours = 100;
-	int countPresent;
-	int count = 0,count1 = 0;
-	int arr1[] = new int[20];
-	int checkFullTime;
-	int checkPartTime;
-	int daysPartTime;
+	static final int IS_FULL_TIME = 1;
+	static final int WAGE_PER_HOUR = 20;
+	static final int FULL_DAY_HOUR = 8;
+	static final int PART_TIME_HOUR = 4;
+	static final int DAYS_PER_MONTH = 20;
+	static int fulltimeMonthWage, parttimeMonthWage;
+	static int monthlyFtHours, monthlyPtHours;
+	static final int TOTAL_HOURS = 100;
+	static int countPresent;
+	static int count = 0;
+	int count1 = 0;
+	static int arr1[] = new int[20];
+	static int checkFullTime;
+	static int checkPartTime;
+	static int daysPartTime;
 
 	//Find number of days employee is present
-	public int findDays() {
+	public static int findDays() {
 		for(int i = 0; i < 20; i++) {
 			int attendance = (int) (Math.random() * 10) % 2 ;
 			if(attendance == 1) {
@@ -32,7 +33,7 @@ public class EmployeeWage {
 	}
 	
 	//To check Job Type as Part time or Full Time
-	public int checkJobType() {
+	public static int checkJobType() {
 		int attendance = (int) (Math.random() * 10) % 2 ; 
 		if(attendance == IS_FULL_TIME) {
 			return attendance;
@@ -42,15 +43,15 @@ public class EmployeeWage {
 	}
 	
 	//Calculate wage
-	public int calcEmpWage(int attendance1) {
+	public static int calcEmpWage(int attendance1) {
 		switch(attendance1) {
 			case 1: 
-				int dailyWage = fullDayHour * wagePerHour;
+				int dailyWage = FULL_DAY_HOUR * WAGE_PER_HOUR;
 				System.out.println("Wage per day is "+dailyWage);
 				return dailyWage;
 				
 			case 0:
-				int parttimeWage = parttimeHour * wagePerHour;
+				int parttimeWage = PART_TIME_HOUR * WAGE_PER_HOUR;
 				System.out.println("Wage per day is "+parttimeWage);
 				return parttimeWage;
 			
@@ -61,24 +62,24 @@ public class EmployeeWage {
 	}
 	
 	//Monthly Wage and monthly hours
-	public int monthlyWage(int attendance1, int wage) {
+	public static int monthlyWage(int attendance1, int wage) {
 		if(attendance1 == IS_FULL_TIME) {
 			fulltimeMonthWage = wage * count;
-			monthlyFtHours = fullDayHour * count;
+			monthlyFtHours = FULL_DAY_HOUR * count;
 			System.out.println("Wage per month is "+fulltimeMonthWage);
 			return monthlyFtHours;
 		} else if(attendance1 == 0) {
 			daysPartTime = count;
 			parttimeMonthWage = wage * daysPartTime;
-			monthlyPtHours = parttimeHour * daysPartTime;
+			monthlyPtHours = PART_TIME_HOUR * daysPartTime;
 			System.out.println("Wage per month is "+parttimeMonthWage);
 			return monthlyPtHours;
 		}
 		return wage;
 	}
 	
-	public void conditionWage(int attendance1, int wage) {
-		while(daysPerMonth >= count){
+	public static void conditionWage(int attendance1, int wage) {
+		while(DAYS_PER_MONTH >= count){
 			if(attendance1 == IS_FULL_TIME) {
 				fulltimeMonthWage = wage * count;
 				count++;
@@ -87,8 +88,8 @@ public class EmployeeWage {
 		}
 	}
 	
-	public void conditionWage2(int attendance1, int wage) {
-		while(daysPerMonth >= daysPartTime){
+	public static void conditionWage2(int attendance1, int wage) {
+		while(DAYS_PER_MONTH >= daysPartTime){
 			if(attendance1 == 0) {
 				fulltimeMonthWage = wage * daysPartTime;
 				daysPartTime++;
@@ -97,20 +98,19 @@ public class EmployeeWage {
 		}
 	}
 	
-	public void print(int attendance1) {
+	public static void print(int attendance1) {
 		if(attendance1 == IS_FULL_TIME) {
-			System.out.println("Total Wage if worked "+daysPerMonth+" days is "+checkFullTime);
+			System.out.println("Total Wage if worked "+DAYS_PER_MONTH+" days is "+checkFullTime);
 		} else if(attendance1 == 0) {
-			System.out.println("Total Wage if worked "+daysPerMonth+" days is "+checkPartTime);
+			System.out.println("Total Wage if worked "+DAYS_PER_MONTH+" days is "+checkPartTime);
 		}
 	}
 
 	public static void main(String[] args) {
-		EmployeeWage emp = new EmployeeWage();
 		String emp1 = "Bino";  //assume bino as fulltime
 		String emp2 = "Lina";  //assume lina as parttime
-		int dayspresent = emp.findDays();
-		int jobtype = emp.checkJobType();
+		int dayspresent = findDays();
+		int jobtype = checkJobType();
 		
 		if(jobtype == 1) {
 			System.out.println("Full time employee "+emp1+" is present "+dayspresent+" days");
@@ -118,16 +118,16 @@ public class EmployeeWage {
 			System.out.println("Part time employee "+emp2+ " is present "+dayspresent+" days");
 		}
 		
-		int dailyWage = emp.calcEmpWage(jobtype);
-		int hoursPresent = emp.monthlyWage(jobtype, dailyWage);
+		int dailyWage = calcEmpWage(jobtype);
+		int hoursPresent = monthlyWage(jobtype, dailyWage);
 		System.out.println("Number of hours worked "+hoursPresent);
 		
 		if(jobtype == 1) {
-			emp.conditionWage(jobtype, dailyWage);
+			conditionWage(jobtype, dailyWage);
 		} else if(jobtype == 0) {
-			emp.conditionWage2(jobtype, dailyWage);
+			conditionWage2(jobtype, dailyWage);
 		}
-		emp.print(jobtype);
+		print(jobtype);
 		
 	}
 }
